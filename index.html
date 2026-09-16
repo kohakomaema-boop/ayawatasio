@@ -1,0 +1,2617 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOVE PRESIDENT</title>
+
+<style>
+
+/* =========================================
+   LOVE PRESIDENT
+   キラキラ乙女ゲームUI
+========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
+
+:root {
+    --pink: #ff8fc7;
+    --pink2: #ffcae5;
+    --purple: #b79aff;
+    --blue: #8fdcff;
+    --gold: #ffd86b;
+    --white: #ffffff;
+    --text: #5b4d68;
+    --darkpink: #a94e80;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    font-family:
+        "Noto Sans JP",
+        -apple-system,
+        BlinkMacSystemFont,
+        sans-serif;
+
+    color: var(--text);
+
+    background:
+        radial-gradient(circle at 10% 15%, #ffffff 0 3px, transparent 4px),
+        radial-gradient(circle at 85% 20%, #ffffff 0 4px, transparent 5px),
+        radial-gradient(circle at 30% 80%, #ffffff 0 3px, transparent 4px),
+        linear-gradient(135deg, #fff0f8, #f2edff 45%, #e8f8ff);
+
+    background-attachment: fixed;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "✦  ✧  ⋆  ✦  ⋆  ✧  ✦  ⋆  ✧  ✦";
+    position: fixed;
+    top: 25px;
+    left: 0;
+    width: 100%;
+    color: rgba(255,255,255,.9);
+    font-size: 24px;
+    letter-spacing: 35px;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 0;
+    animation: sparkle 5s infinite alternate ease-in-out;
+}
+
+body::after {
+    content: "✧  ✦  ⋆  ✧  ✦  ⋆  ✧  ✦";
+    position: fixed;
+    bottom: 50px;
+    right: 0;
+    color: rgba(255,255,255,.8);
+    font-size: 20px;
+    letter-spacing: 30px;
+    pointer-events: none;
+    z-index: 0;
+    animation: sparkle 4s infinite alternate-reverse ease-in-out;
+}
+
+@keyframes sparkle {
+    from {
+        opacity: .35;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(12px);
+    }
+}
+
+#game {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.screen {
+    width: min(1150px, 96%);
+    margin: 20px auto;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.97),
+            rgba(255,246,252,.96)
+        );
+
+    border: 3px solid rgba(255,255,255,.9);
+    border-radius: 30px;
+    overflow: hidden;
+
+    box-shadow:
+        0 15px 50px rgba(177,125,177,.25),
+        0 0 0 5px rgba(255,180,220,.18),
+        inset 0 0 30px rgba(255,255,255,.8);
+
+    position: relative;
+}
+
+/* =========================================
+   タイトル
+========================================= */
+
+.title {
+    text-align: center;
+    padding: 50px 20px 45px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffb8dc,
+            #d5c3ff,
+            #aee7ff
+        );
+
+    position: relative;
+    overflow: hidden;
+    border-bottom: 3px solid #ffffff;
+}
+
+.title::before {
+    content: "♡ ✦ ♡ ✧ ♡ ✦ ♡";
+    position: absolute;
+    top: 12px;
+    left: 0;
+    width: 100%;
+    font-size: 22px;
+    color: rgba(255,255,255,.9);
+    letter-spacing: 25px;
+}
+
+.title h1 {
+    margin: 0;
+
+    font-family: "Great Vibes", cursive;
+
+    font-size: clamp(55px, 10vw, 100px);
+    font-weight: 400;
+    color: white;
+
+    text-shadow:
+        0 3px 0 #e68db9,
+        0 5px 12px rgba(141,87,120,.25);
+
+    letter-spacing: .03em;
+}
+
+.title p {
+    color: white;
+    font-weight: 700;
+}
+
+/* =========================================
+   コンテンツ
+========================================= */
+
+.content {
+    padding: 35px;
+}
+
+/* =========================================
+   共通
+========================================= */
+
+.hidden {
+    display: none !important;
+}
+
+.primary {
+    margin-top: 15px;
+    padding: 15px 30px;
+
+    border: none;
+    border-radius: 999px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff91c5,
+            #b99cff
+        );
+
+    color: white;
+    font-weight: 900;
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 15px rgba(190,120,190,.25),
+        inset 0 2px 0 rgba(255,255,255,.5);
+
+    transition: .2s;
+}
+
+.primary:hover {
+    transform: translateY(-3px) scale(1.02);
+
+    box-shadow:
+        0 10px 25px rgba(190,120,190,.3);
+}
+
+/* =========================================
+   名前
+========================================= */
+
+.name-box {
+    max-width: 550px;
+    margin: 25px auto;
+    text-align: center;
+    padding: 35px;
+
+    background: rgba(255,255,255,.8);
+
+    border-radius: 25px;
+    border: 2px solid #ffd5e9;
+
+    box-shadow:
+        0 10px 30px rgba(220,150,190,.15);
+}
+
+.name-box h2 {
+    color: #c45c94;
+    font-size: 25px;
+}
+
+.name-box input {
+    width: 100%;
+
+    padding: 16px 20px;
+
+    background: white;
+    border: 2px solid #ffc4df;
+
+    color: #66556f;
+
+    border-radius: 18px;
+    font-size: 18px;
+
+    outline: none;
+}
+
+/* =========================================
+   国選択
+========================================= */
+
+.country-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 22px;
+}
+
+.country {
+    min-height: 250px;
+
+    padding: 25px;
+
+    text-align: left;
+
+    color: var(--text);
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff5fb
+        );
+
+    border:
+        3px solid #ffd4e8;
+
+    border-radius: 25px;
+
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+
+    transition: .25s;
+
+    box-shadow:
+        0 8px 20px rgba(190,140,180,.12);
+}
+
+.country:hover {
+    transform: translateY(-8px) rotate(-.5deg);
+
+    border-color: #ff9fc9;
+
+    box-shadow:
+        0 15px 35px rgba(211,137,181,.25),
+        0 0 25px rgba(255,170,220,.2);
+}
+
+.country .flag {
+    font-size: 48px;
+    float: right;
+}
+
+.country h2 {
+    color: #bc5b92;
+    font-size: 26px;
+}
+
+.country b {
+    color: #8166aa;
+}
+
+.country small {
+    color: #817589;
+    line-height: 1.8;
+}
+
+/* =========================================
+   ステータス
+========================================= */
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+
+    padding: 14px 22px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #fff0f8,
+            #f2edff,
+            #e9f8ff
+        );
+
+    border-bottom: 2px solid #ffffff;
+}
+
+.stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.stats span {
+    padding: 7px 12px;
+    border-radius: 999px;
+
+    background: white;
+
+    border: 1px solid #ffd4e7;
+
+    box-shadow:
+        0 3px 8px rgba(190,130,170,.1);
+}
+
+.stats b {
+    color: #d05d99;
+}
+
+.progress {
+    height: 9px;
+    background: #ffeaf5;
+}
+
+.progress-bar {
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff8fbe,
+            #c39aff,
+            #8bdfff
+        );
+
+    border-radius: 999px;
+
+    transition: .5s;
+
+    box-shadow:
+        0 0 8px rgba(255,150,205,.6);
+}
+
+/* =========================================
+   会話
+========================================= */
+
+.scene {
+    display: grid;
+    grid-template-columns: 42% 58%;
+    min-height: 680px;
+}
+
+.character {
+    background-size: cover;
+    background-position: center top;
+
+    min-height: 680px;
+
+    position: relative;
+
+    border-right: 3px solid white;
+}
+
+.dialogue {
+    padding: 45px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at 90% 10%,
+            #fff0f8,
+            transparent 25%
+        ),
+        white;
+
+    position: relative;
+}
+
+.speaker {
+    font-family: "Great Vibes", cursive;
+    font-size: 48px;
+    color: #c05a91;
+}
+
+.mood {
+    display: inline-block;
+    width: fit-content;
+
+    margin-top: 3px;
+    padding: 5px 13px;
+
+    border-radius: 999px;
+
+    background: #f0e8ff;
+    color: #9072bd;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.text {
+    margin-top: 25px;
+
+    min-height: 190px;
+
+    padding: 20px;
+
+    font-size: 18px;
+    line-height: 2;
+
+    white-space: pre-line;
+
+    color: #66586f;
+
+    background: rgba(255,245,251,.65);
+
+    border-radius: 20px;
+
+    border: 1px solid #ffe0ee;
+}
+
+.choices {
+    display: grid;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.choice {
+    padding: 16px 18px;
+
+    text-align: left;
+
+    color: #67546e;
+
+    background:
+        linear-gradient(
+            100deg,
+            #fff,
+            #fff7fb
+        );
+
+    border: 2px solid #ffd4e7;
+
+    border-radius: 17px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 10px rgba(200,140,180,.1);
+
+    transition: .2s;
+}
+
+.choice:hover {
+    transform: translateX(6px);
+    border-color: #ff9dc8;
+    background: #fff0f7;
+}
+
+.choice-number {
+    display: inline-grid;
+    place-items: center;
+
+    width: 27px;
+    height: 27px;
+
+    margin-right: 8px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff9bc7,
+            #b79cff
+        );
+
+    color: white;
+    font-weight: 900;
+}
+
+/* =========================================
+   ミニゲーム共通
+========================================= */
+
+.mini-game {
+    max-width: 900px;
+
+    margin: auto;
+
+    padding: 55px 25px;
+
+    text-align: center;
+}
+
+.mini-game h1 {
+    color: #c15c94;
+
+    font-family: "Great Vibes", cursive;
+
+    font-size: 58px;
+}
+
+.game-subtitle {
+    color: #8a748d;
+    line-height: 1.8;
+}
+
+.mini-options {
+    display: grid;
+
+    grid-template-columns: repeat(3,1fr);
+
+    gap: 18px;
+
+    margin-top: 30px;
+}
+
+.mini-option {
+    min-height: 160px;
+
+    padding: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            white,
+            #fff3fa
+        );
+
+    color: #685670;
+
+    border: 2px solid #ffd2e7;
+
+    border-radius: 22px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 20px rgba(200,140,180,.12);
+
+    transition: .25s;
+}
+
+.mini-option:hover {
+    transform: translateY(-7px);
+
+    border-color: #ff9bc7;
+
+    box-shadow:
+        0 15px 30px rgba(200,130,180,.2);
+}
+
+.mini-option .icon {
+    display: block;
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.mini-option h3 {
+    margin: 5px 0;
+    color: #bd6095;
+}
+
+.mini-option p {
+    font-size: 13px;
+    color: #8a778e;
+}
+
+/* =========================================
+   ゲーム結果
+========================================= */
+
+.game-result {
+    margin-top: 25px;
+
+    padding: 20px;
+
+    border-radius: 20px;
+
+    background: #fff5fb;
+
+    border: 2px solid #ffd7e9;
+
+    line-height: 1.8;
+}
+
+/* =========================================
+   ガチャ
+========================================= */
+
+.gacha {
+    text-align: center;
+    padding: 50px 30px;
+}
+
+.gacha h1 {
+    font-family: "Great Vibes", cursive;
+    font-size: 60px;
+    color: #c35b94;
+}
+
+.gacha-box {
+    width: 190px;
+    height: 190px;
+
+    margin: 30px auto;
+
+    border-radius: 40px;
+
+    border: 4px solid white;
+
+    background:
+        radial-gradient(
+            circle at 30% 25%,
+            white,
+            transparent 8%
+        ),
+        linear-gradient(
+            135deg,
+            #ff9fc9,
+            #bba0ff,
+            #8bdfff
+        );
+
+    display: grid;
+    place-items: center;
+
+    font-size: 75px;
+    color: white;
+
+    box-shadow:
+        0 0 0 5px #ffd5e9,
+        0 15px 40px rgba(190,130,190,.25),
+        0 0 35px rgba(255,180,220,.5);
+
+    animation:
+        gachaFloat 2.5s infinite ease-in-out;
+}
+
+@keyframes gachaFloat {
+    0%,100% {
+        transform: translateY(0) rotate(-2deg);
+    }
+
+    50% {
+        transform: translateY(-8px) rotate(2deg);
+    }
+}
+
+/* =========================================
+   エンディング
+========================================= */
+
+.ending {
+    text-align: center;
+
+    padding: 90px 25px;
+
+    background:
+        radial-gradient(
+            circle at 50% 30%,
+            #fff,
+            #fff1f8
+        );
+}
+
+.ending h2 {
+    font-family: "Great Vibes", cursive;
+
+    font-size: 65px;
+
+    color: #c45c95;
+
+    text-shadow: 0 3px white;
+}
+
+.ending p {
+    line-height: 2;
+    font-size: 17px;
+    color: #6d5a75;
+}
+
+/* =========================================
+   画像アップロード
+========================================= */
+
+.image-settings {
+    max-width: 950px;
+    margin: 25px auto;
+    padding: 25px;
+
+    background: rgba(255,255,255,.82);
+
+    border: 2px solid #ffd8ea;
+    border-radius: 25px;
+}
+
+.image-settings h3 {
+    color: #bd6095;
+    text-align: center;
+}
+
+.upload-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 15px;
+}
+
+.upload-box {
+    padding: 18px;
+    text-align: center;
+
+    background: #fff8fc;
+
+    border: 2px dashed #ffb9d8;
+    border-radius: 18px;
+}
+
+.upload-box label {
+    display: block;
+
+    padding: 10px;
+
+    border-radius: 999px;
+
+    background: linear-gradient(135deg,#ff9bc8,#b89cff);
+
+    color: white;
+
+    font-weight: 900;
+
+    cursor: pointer;
+}
+
+.upload-box input {
+    display: none;
+}
+
+.preview {
+    width: 100%;
+    height: 170px;
+
+    margin-bottom: 12px;
+
+    object-fit: cover;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffe5f2,
+            #eee4ff
+        );
+}
+
+/* =========================================
+   所持品
+========================================= */
+
+.inventory {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+
+    margin-top: 25px;
+}
+
+.inventory-item {
+    padding: 8px 13px;
+
+    background: white;
+
+    border: 1px solid #ffd0e5;
+
+    border-radius: 999px;
+
+    font-size: 13px;
+}
+
+/* =========================================
+   通知
+========================================= */
+
+.toast {
+    position: fixed;
+
+    left: 50%;
+    bottom: 30px;
+
+    transform: translateX(-50%) translateY(30px);
+
+    padding: 14px 24px;
+
+    background: rgba(95,72,100,.94);
+
+    color: white;
+
+    border-radius: 999px;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: .35s;
+
+    z-index: 100;
+}
+
+.toast.show {
+    opacity: 1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+}
+
+/* =========================================
+   スマホ
+========================================= */
+
+@media(max-width:750px) {
+
+    #game {
+        padding: 8px;
+    }
+
+    .screen {
+        width: 100%;
+        margin: 8px auto;
+        border-radius: 22px;
+    }
+
+    .title {
+        padding: 40px 15px;
+    }
+
+    .content {
+        padding: 18px;
+    }
+
+    .country-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .scene {
+        grid-template-columns: 1fr;
+    }
+
+    .character {
+        min-height: 480px;
+        border-right: none;
+        border-bottom: 3px solid white;
+    }
+
+    .dialogue {
+        padding: 28px 18px;
+    }
+
+    .speaker {
+        font-size: 42px;
+    }
+
+    .text {
+        font-size: 16px;
+        min-height: 160px;
+    }
+
+    .mini-options {
+        grid-template-columns: 1fr;
+    }
+
+    .upload-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .stats {
+        gap: 5px;
+    }
+
+    .stats span {
+        font-size: 12px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="game">
+
+<!-- =====================================
+     タイトル
+===================================== -->
+
+<div class="screen">
+
+<section class="title">
+    <h1>LOVE PRESIDENT</h1>
+    <p>世界のトップと恋をする――。</p>
+</section>
+
+
+<!-- =====================================
+     名前入力
+===================================== -->
+
+<div id="startScreen" class="content">
+
+    <div class="name-box">
+
+        <h2>♡ あなたの名前を教えてください ♡</h2>
+
+        <input
+            id="playerName"
+            type="text"
+            placeholder="名前を入力してください"
+            maxlength="15"
+        >
+
+        <button class="primary" onclick="startGame()">
+            恋をはじめる ♡
+        </button>
+
+    </div>
+
+
+    <!-- =================================
+         画像設定
+    ================================== -->
+
+    <div class="image-settings">
+
+        <h3>♡ 攻略対象の画像を設定 ♡</h3>
+
+        <p style="text-align:center;font-size:13px;color:#8b778e;">
+            自分の画像ファイルを選択するとゲーム内に表示されます。
+        </p>
+
+        <div class="upload-grid">
+
+            <div class="upload-box">
+
+                <img
+                    id="previewUSA"
+                    class="preview"
+                    src=""
+                    alt="アメリカ"
+                >
+
+                <strong>🇺🇸 アメリカ大統領</strong>
+
+                <br><br>
+
+                <label>
+                    画像を選択
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onchange="loadImage(event,'USA')"
+                    >
+                </label>
+
+            </div>
+
+
+            <div class="upload-box">
+
+                <img
+                    id="previewUK"
+                    class="preview"
+                    src=""
+                    alt="イギリス"
+                >
+
+                <strong>🇬🇧 イギリス</strong>
+
+                <br><br>
+
+                <label>
+                    画像を選択
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onchange="loadImage(event,'UK')"
+                    >
+                </label>
+
+            </div>
+
+
+            <div class="upload-box">
+
+                <img
+                    id="previewSA"
+                    class="preview"
+                    src=""
+                    alt="サウジアラビア"
+                >
+
+                <strong>🇸🇦 サウジアラビア</strong>
+
+                <br><br>
+
+                <label>
+                    画像を選択
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onchange="loadImage(event,'SA')"
+                    >
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================
+     国選択
+===================================== -->
+
+<div id="countryScreen" class="content hidden">
+
+    <h2 style="text-align:center;color:#c15c94;">
+        ♡ 攻略する相手を選んでください ♡
+    </h2>
+
+    <p style="text-align:center;">
+        まずは運命の相手との「初対面」から始まります。
+    </p>
+
+    <div class="country-grid">
+
+        <div class="country" onclick="selectCountry('USA')">
+
+            <div class="flag">🇺🇸</div>
+
+            <h2>America</h2>
+
+            <b>アメリカ大統領</b>
+
+            <p>
+                自信家で大胆。<br>
+                豪快に見えるが、意外と寂しがり屋。
+            </p>
+
+            <small>
+                難易度：★★★☆☆<br>
+                好み：コーヒー・ステーキ・実用品
+            </small>
+
+        </div>
+
+
+        <div class="country" onclick="selectCountry('UK')">
+
+            <div class="flag">🇬🇧</div>
+
+            <h2>Britain</h2>
+
+            <b>イギリス首相</b>
+
+            <p>
+                知的で紳士的。<br>
+                少し皮肉屋だが、心を開くと優しい。
+            </p>
+
+            <small>
+                難易度：★★★★☆<br>
+                好み：紅茶・本・アンティーク
+            </small>
+
+        </div>
+
+
+        <div class="country" onclick="selectCountry('SA')">
+
+            <div class="flag">🇸🇦</div>
+
+            <h2>Saudi Arabia</h2>
+
+            <b>サウジアラビア</b>
+
+            <p>
+                威厳があり落ち着いた人物。<br>
+                誠実さと心遣いを重視する。
+            </p>
+
+            <small>
+                難易度：★★★★★<br>
+                好み：デーツ・香水・美しい装飾品
+            </small>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================
+     ゲーム本編
+===================================== -->
+
+<div id="gameScreen" class="hidden">
+
+    <div class="topbar">
+
+        <div>
+            <strong id="countryName">America</strong>
+        </div>
+
+        <div class="stats">
+
+            <span>
+                好感度：
+                <b id="affection">0</b>
+            </span>
+
+            <span>
+                所持金：
+                <b id="money">100</b>
+            </span>
+
+            <span>
+                第 <b id="chapter">1</b> 章
+            </span>
+
+        </div>
+
+    </div>
+
+    <div class="progress">
+        <div
+            id="progressBar"
+            class="progress-bar"
+            style="width:8%"
+        ></div>
+    </div>
+
+
+    <!-- =================================
+         会話
+    ================================== -->
+
+    <div id="sceneScreen" class="scene">
+
+        <div
+            id="character"
+            class="character"
+        ></div>
+
+        <div class="dialogue">
+
+            <div
+                id="speaker"
+                class="speaker"
+            >
+                ―
+            </div>
+
+            <div
+                id="mood"
+                class="mood"
+            >
+                ―
+            </div>
+
+            <div
+                id="dialogueText"
+                class="text"
+            >
+                ―
+            </div>
+
+            <div
+                id="choices"
+                class="choices"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================
+         ミニゲーム
+    ================================== -->
+
+    <div
+        id="miniGameScreen"
+        class="mini-game hidden"
+    >
+
+        <h1 id="miniTitle">
+            ♡ Mini Game ♡
+        </h1>
+
+        <p
+            id="miniDescription"
+            class="game-subtitle"
+        ></p>
+
+        <div
+            id="miniOptions"
+            class="mini-options"
+        ></div>
+
+        <div
+            id="gameResult"
+            class="game-result hidden"
+        ></div>
+
+    </div>
+
+
+    <!-- =================================
+         エンディング
+    ================================== -->
+
+    <div
+        id="endingScreen"
+        class="ending hidden"
+    >
+
+        <h2 id="endingTitle">
+            Love Ending
+        </h2>
+
+        <p id="endingText"></p>
+
+        <button
+            class="primary"
+            onclick="location.reload()"
+        >
+            もう一度プレイする ♡
+        </button>
+
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
+
+<script>
+
+/* =========================================
+   画像
+========================================= */
+
+const images = {
+    USA: "",
+    UK: "",
+    SA: ""
+};
+
+function loadImage(event, country) {
+
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    const url = URL.createObjectURL(file);
+
+    images[country] = url;
+
+    document.getElementById(
+        "preview" + country
+    ).src = url;
+
+    showToast("画像を設定しました ♡");
+}
+
+
+/* =========================================
+   ゲーム状態
+========================================= */
+
+let playerName = "";
+
+let currentCountry = "";
+
+let affection = 0;
+
+let money = 100;
+
+let chapter = 1;
+
+let storyIndex = 0;
+
+let inventory = [];
+
+let miniGameCount = 0;
+
+
+/* =========================================
+   キャラクター情報
+========================================= */
+
+const characters = {
+
+    USA: {
+        name: "The President",
+        country: "🇺🇸 America",
+        image: "",
+        color: "#c05a91"
+    },
+
+    UK: {
+        name: "The Prime Minister",
+        country: "🇬🇧 Britain",
+        image: "",
+        color: "#8a70b5"
+    },
+
+    SA: {
+        name: "The Prince",
+        country: "🇸🇦 Saudi Arabia",
+        image: "",
+        color: "#9b704d"
+    }
+
+};
+
+
+/* =========================================
+   ストーリー
+========================================= */
+
+const stories = {
+
+USA: [
+
+    {
+        speaker: "The President",
+        mood: "初対面",
+        text:
+`「……君が今回の訪問者か？」\n\n
+大統領官邸の大きな扉が開く。\n
+あなたは緊張しながら彼の前に立った。\n\n
+彼はあなたをしばらく見つめると、ふっと笑った。\n\n「そんなに緊張しなくていい。今日は仕事の話だけじゃないんだから。」`,
+        choices: [
+            ["「よろしくお願いします」と丁寧に頭を下げる", 5],
+            ["「思ったより怖くないですね」と笑う", 8],
+            ["緊張して何も言えない", 2]
+        ]
+    },
+
+    {
+        speaker: "The President",
+        mood: "興味",
+        text:
+`「日本から来たんだな。」\n\n
+彼はあなたの持っている小さなバッグに目を向ける。\n\n
+「……それ、何が入っている？」`,
+        choices: [
+            ["日本のお菓子です", 7],
+            ["秘密です", 10],
+            ["仕事の資料です", 3]
+        ]
+    },
+
+    {
+        speaker: "The President",
+        mood: "距離が近づく",
+        text:
+`「秘密、か。」\n\n
+彼は少し楽しそうに笑った。\n\n
+「君はなかなか面白いな。」\n\n
+そう言って、あなたの隣を歩き始める。`,
+        choices: [
+            ["「もっと面白いところを見せますよ」", 10],
+            ["「褒めても何も出ませんよ？」", 6],
+            ["黙って隣を歩く", 4]
+        ]
+    },
+
+    {
+        speaker: "The President",
+        mood: "夕暮れ",
+        text:
+`「今日は長い一日だったな。」\n\n
+窓の外には夕焼けが広がっている。\n\n
+「……君と話していると、不思議と時間が早い。」`,
+        choices: [
+            ["「私もです」", 12],
+            ["「お疲れなんですね」", 5],
+            ["「じゃあ、もう少し話します？」", 15]
+        ]
+    }
+
+],
+
+UK: [
+
+    {
+        speaker: "The Prime Minister",
+        mood: "初対面",
+        text:
+`「お待たせしました。」\n\n
+静かな応接室に、落ち着いた声が響く。\n\n
+彼はあなたに手を差し出した。\n\n
+「遠いところから来ていただいて、ありがとうございます。」`,
+        choices: [
+            ["「こちらこそ、お会いできて光栄です」", 6],
+            ["「思ったより優しそうですね」", 10],
+            ["「緊張しています……」", 7]
+        ]
+    },
+
+    {
+        speaker: "The Prime Minister",
+        mood: "会話",
+        text:
+`「英国について、何か知りたいことはありますか？」\n\n
+彼は紅茶を一口飲み、微笑んだ。\n\n
+「……もちろん、政治以外の話でも構いませんよ。」`,
+        choices: [
+            ["「おすすめの紅茶を知りたいです」", 10],
+            ["「休日は何をしているんですか？」", 12],
+            ["「政治の話を聞きたいです」", 5]
+        ]
+    },
+
+    {
+        speaker: "The Prime Minister",
+        mood: "微笑み",
+        text:
+`「休日ですか？」\n\n
+彼は少し考えた。\n\n
+「本を読んだり、静かな場所を歩いたりします。」\n\n
+そしてあなたを見る。\n\n
+「……誰かと一緒なら、もっと楽しいかもしれませんね。」`,
+        choices: [
+            ["「それなら私が付き合います」", 15],
+            ["「一人の時間も大切ですよね」", 8],
+            ["「意外ですね」", 4]
+        ]
+    },
+
+    {
+        speaker: "The Prime Minister",
+        mood: "特別な時間",
+        text:
+`夜の庭園。\n\n
+二人で並んで歩いている。\n\n
+彼は突然足を止めた。\n\n
+「……もう少しだけ、この時間が続けばいいと思いませんか？」`,
+        choices: [
+            ["「はい……」", 15],
+            ["「明日もありますよ」", 8],
+            ["「どうしてそんなことを？」", 12]
+        ]
+    }
+
+],
+
+SA: [
+
+    {
+        speaker: "The Prince",
+        mood: "初対面",
+        text:
+`豪華な宮殿の扉が静かに開く。\n\n
+彼はゆっくりとあなたの前へ歩いてくる。\n\n
+「ようこそ。」\n\n
+落ち着いた声。\n\n
+「長旅だったでしょう。」`,
+        choices: [
+            ["「お気遣いありがとうございます」", 8],
+            ["「素敵な宮殿ですね」", 7],
+            ["「少し緊張しています」", 10]
+        ]
+    },
+
+    {
+        speaker: "The Prince",
+        mood: "観察",
+        text:
+`「あなたは、とても興味深い人ですね。」\n\n
+彼はそう言って、あなたの顔を見る。\n\n
+「表情に思ったことが出ています。」`,
+        choices: [
+            ["「見られると恥ずかしいです」", 10],
+            ["「じゃあ隠さないことにします」", 15],
+            ["「そんなに分かりやすいですか？」", 8]
+        ]
+    },
+
+    {
+        speaker: "The Prince",
+        mood: "信頼",
+        text:
+`「この国では、客人を大切にします。」\n\n
+彼はあなたのために椅子を用意した。\n\n
+「今日はあなたの好きなものを知りたい。」`,
+        choices: [
+            ["「美しいものが好きです」", 10],
+            ["「美味しいものが好きです」", 8],
+            ["「誰かと楽しく過ごすことが好きです」", 15]
+        ]
+    },
+
+    {
+        speaker: "The Prince",
+        mood: "夜",
+        text:
+`夜の宮殿。\n\n
+静かな音楽が流れている。\n\n
+彼はあなたの隣に立った。\n\n
+「……あなたと過ごす夜は、静かすぎるほど静かですね。」\n\n
+そして小さく笑う。\n\n
+「私は、この静けさが嫌いではありません。」`,
+        choices: [
+            ["「私も好きです」", 15],
+            ["「もっと賑やかにしましょう」", 7],
+            ["「少しドキドキします」", 12]
+        ]
+    }
+
+]
+
+};
+
+
+/* =========================================
+   ミニゲームデータ
+========================================= */
+
+const miniGames = {
+
+    souvenir: {
+
+        title: "🎁 お土産を選ぼう",
+
+        description:
+            "初対面の相手に渡すなら、どのお土産？",
+
+        options: {
+
+            USA: [
+                {
+                    icon:"☕",
+                    title:"高級コーヒー",
+                    text:"香りの良いコーヒー豆",
+                    affection:12,
+                    money:15,
+                    item:"アメリカ土産のコーヒー"
+                },
+                {
+                    icon:"🍵",
+                    title:"日本茶",
+                    text:"上品な和のお茶",
+                    affection:8,
+                    money:10,
+                    item:"高級日本茶"
+                },
+                {
+                    icon:"🎀",
+                    title:"かわいい置物",
+                    text:"小さな記念品",
+                    affection:15,
+                    money:20,
+                    item:"星の置物"
+                }
+            ],
+
+            UK: [
+                {
+                    icon:"🍵",
+                    title:"高級紅茶",
+                    text:"英国らしい茶葉",
+                    affection:15,
+                    money:15,
+                    item:"英国紅茶"
+                },
+                {
+                    icon:"🍪",
+                    title:"和菓子",
+                    text:"美しい季節の和菓子",
+                    affection:12,
+                    money:10,
+                    item:"季節の和菓子"
+                },
+                {
+                    icon:"🧸",
+                    title:"ぬいぐるみ",
+                    text:"可愛い記念品",
+                    affection:5,
+                    money:20,
+                    item:"小さなぬいぐるみ"
+                }
+            ],
+
+            SA: [
+                {
+                    icon:"🌸",
+                    title:"香水",
+                    text:"上品な香りの香水",
+                    affection:15,
+                    money:25,
+                    item:"日本の香水"
+                },
+                {
+                    icon:"🍵",
+                    title:"抹茶",
+                    text:"日本の伝統的なお茶",
+                    affection:10,
+                    money:10,
+                    item:"抹茶"
+                },
+                {
+                    icon:"🎎",
+                    title:"伝統工芸品",
+                    text:"美しい日本の工芸品",
+                    affection:18,
+                    money:30,
+                    item:"伝統工芸品"
+                }
+            ]
+
+        }
+
+    },
+
+
+    food: {
+
+        title:"🍽️ 一緒に食べるもの",
+
+        description:
+            "夕食に誘われました。何を選ぶ？",
+
+        options: {
+
+            USA:[
+                {
+                    icon:"🥩",
+                    title:"ステーキ",
+                    text:"豪快なディナー",
+                    affection:15,
+                    money:25,
+                    item:"ステーキディナー"
+                },
+                {
+                    icon:"🍔",
+                    title:"ハンバーガー",
+                    text:"気軽なアメリカ料理",
+                    affection:10,
+                    money:12,
+                    item:"バーガー"
+                },
+                {
+                    icon:"🍰",
+                    title:"ケーキ",
+                    text:"甘いデザート",
+                    affection:12,
+                    money:15,
+                    item:"ケーキ"
+                }
+            ],
+
+            UK:[
+                {
+                    icon:"🍵",
+                    title:"アフタヌーンティー",
+                    text:"英国らしい優雅な時間",
+                    affection:18,
+                    money:20,
+                    item:"ティーセット"
+                },
+                {
+                    icon:"🥧",
+                    title:"ミートパイ",
+                    text:"英国の伝統料理",
+                    affection:12,
+                    money:15,
+                    item:"ミートパイ"
+                },
+                {
+                    icon:"🍰",
+                    title:"スコーン",
+                    text:"紅茶と相性抜群",
+                    affection:15,
+                    money:10,
+                    item:"スコーン"
+                }
+            ],
+
+            SA:[
+                {
+                    icon:"🌴",
+                    title:"デーツ",
+                    text:"甘くて上品な伝統菓子",
+                    affection:18,
+                    money:12,
+                    item:"高級デーツ"
+                },
+                {
+                    icon:"🍚",
+                    title:"伝統料理",
+                    text:"香り豊かな料理",
+                    affection:15,
+                    money:20,
+                    item:"宮殿の料理"
+                },
+                {
+                    icon:"🍨",
+                    title:"デザート",
+                    text:"甘い食後のひととき",
+                    affection:10,
+                    money:10,
+                    item:"宮殿デザート"
+                }
+            ]
+
+        }
+
+    },
+
+
+    gift: {
+
+        title:"💝 プレゼントを選ぼう",
+
+        description:
+            "少し距離が近づきました。彼にプレゼントを贈るなら？",
+
+        options: {
+
+            USA:[
+                {
+                    icon:"⌚",
+                    title:"腕時計",
+                    text:"実用的で上品",
+                    affection:20,
+                    money:35,
+                    item:"腕時計"
+                },
+                {
+                    icon:"🧢",
+                    title:"帽子",
+                    text:"カジュアルな贈り物",
+                    affection:12,
+                    money:15,
+                    item:"お気に入りの帽子"
+                },
+                {
+                    icon:"📷",
+                    title:"二人の写真",
+                    text:"思い出を残す",
+                    affection:22,
+                    money:10,
+                    item:"二人の写真"
+                }
+            ],
+
+            UK:[
+                {
+                    icon:"📖",
+                    title:"古い本",
+                    text:"歴史ある一冊",
+                    affection:22,
+                    money:30,
+                    item:"アンティーク本"
+                },
+                {
+                    icon:"🖋️",
+                    title:"万年筆",
+                    text:"美しい筆記具",
+                    affection:20,
+                    money:25,
+                    item:"高級万年筆"
+                },
+                {
+                    icon:"🌹",
+                    title:"薔薇",
+                    text:"シンプルな花束",
+                    affection:15,
+                    money:12,
+                    item:"赤い薔薇"
+                }
+            ],
+
+            SA:[
+                {
+                    icon:"🪔",
+                    title:"美しい工芸品",
+                    text:"伝統的な装飾品",
+                    affection:22,
+                    money:30,
+                    item:"黄金の工芸品"
+                },
+                {
+                    icon:"🌹",
+                    title:"花",
+                    text:"美しい花束",
+                    affection:15,
+                    money:15,
+                    item:"宮殿の花"
+                },
+                {
+                    icon:"📿",
+                    title:"装飾品",
+                    text:"上品なアクセサリー",
+                    affection:25,
+                    money:40,
+                    item:"美しい装飾品"
+                }
+            ]
+
+        }
+
+    },
+
+
+    treasure: {
+
+        title:"💎 宝物を選ぼう",
+
+        description:
+            "宮殿の宝物庫。ひとつだけ持っていけるなら？",
+
+        options: {
+
+            USA:[
+                {
+                    icon:"🏆",
+                    title:"記念トロフィー",
+                    text:"輝く記念品",
+                    affection:15,
+                    money:0,
+                    item:"記念トロフィー"
+                },
+                {
+                    icon:"💎",
+                    title:"宝石",
+                    text:"きらめく宝石",
+                    affection:18,
+                    money:0,
+                    item:"青い宝石"
+                },
+                {
+                    icon:"📜",
+                    title:"古い手紙",
+                    text:"歴史を感じる手紙",
+                    affection:25,
+                    money:0,
+                    item:"古い手紙"
+                }
+            ],
+
+            UK:[
+                {
+                    icon:"👑",
+                    title:"王冠のレプリカ",
+                    text:"英国風の記念品",
+                    affection:15,
+                    money:0,
+                    item:"王冠レプリカ"
+                },
+                {
+                    icon:"📜",
+                    title:"古文書",
+                    text:"歴史的な文書",
+                    affection:25,
+                    money:0,
+                    item:"古文書"
+                },
+                {
+                    icon:"💍",
+                    title:"アンティーク指輪",
+                    text:"古い美しい指輪",
+                    affection:30,
+                    money:0,
+                    item:"アンティーク指輪"
+                }
+            ],
+
+            SA:[
+                {
+                    icon:"💎",
+                    title:"宝石",
+                    text:"砂漠の夜のような宝石",
+                    affection:25,
+                    money:0,
+                    item:"砂漠の宝石"
+                },
+                {
+                    icon:"🪔",
+                    title:"黄金のランプ",
+                    text:"美しい装飾品",
+                    affection:18,
+                    money:0,
+                    item:"黄金のランプ"
+                },
+                {
+                    icon:"🗝️",
+                    title:"古い鍵",
+                    text:"秘密の部屋を開く鍵？",
+                    affection:30,
+                    money:0,
+                    item:"謎の鍵"
+                }
+            ]
+
+        }
+
+    }
+
+};
+
+
+/* =========================================
+   ゲーム開始
+========================================= */
+
+function startGame() {
+
+    playerName =
+        document
+        .getElementById("playerName")
+        .value
+        .trim();
+
+    if (!playerName) {
+
+        playerName = "あなた";
+
+    }
+
+    document
+        .getElementById("startScreen")
+        .classList
+        .add("hidden");
+
+    document
+        .getElementById("countryScreen")
+        .classList
+        .remove("hidden");
+}
+
+
+/* =========================================
+   国選択
+========================================= */
+
+function selectCountry(country) {
+
+    currentCountry = country;
+
+    affection = 0;
+    money = 100;
+    chapter = 1;
+    storyIndex = 0;
+    inventory = [];
+    miniGameCount = 0;
+
+    characters[country].image =
+        images[country];
+
+    document
+        .getElementById("countryScreen")
+        .classList
+        .add("hidden");
+
+    document
+        .getElementById("gameScreen")
+        .classList
+        .remove("hidden");
+
+    document
+        .getElementById("gameScreen")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+    updateStats();
+
+    showStory();
+
+}
+
+
+/* =========================================
+   ストーリー表示
+========================================= */
+
+function showStory() {
+
+    const data =
+        stories[currentCountry][storyIndex];
+
+    if (!data) {
+
+        showEnding();
+
+        return;
+
+    }
+
+    document
+        .getElementById("miniGameScreen")
+        .classList
+        .add("hidden");
+
+    document
+        .getElementById("endingScreen")
+        .classList
+        .add("hidden");
+
+    document
+        .getElementById("sceneScreen")
+        .classList
+        .remove("hidden");
+
+
+    const character =
+        document.getElementById("character");
+
+
+    const image =
+        images[currentCountry];
+
+    if (image) {
+
+        character.style.backgroundImage =
+            `url("${image}")`;
+
+    } else {
+
+        character.style.backgroundImage =
+            `
+            linear-gradient(
+                135deg,
+                #ffd5e8,
+                #ddd0ff,
+                #c5efff
+            )
+            `;
+
+    }
+
+
+    document
+        .getElementById("countryName")
+        .textContent =
+            characters[currentCountry].country;
+
+
+    document
+        .getElementById("speaker")
+        .textContent =
+            data.speaker;
+
+
+    document
+        .getElementById("mood")
+        .textContent =
+            data.mood;
+
+
+    document
+        .getElementById("dialogueText")
+        .textContent =
+            data.text;
+
+
+    const choices =
+        document.getElementById("choices");
+
+    choices.innerHTML = "";
+
+
+    data.choices.forEach(
+        (choice,index) => {
+
+            const button =
+                document.createElement("button");
+
+            button.className = "choice";
+
+            button.innerHTML =
+                `
+                <span class="choice-number">
+                    ${index + 1}
+                </span>
+                ${choice[0]}
+                `;
+
+            button.onclick =
+                () => {
+
+                    affection += choice[1];
+
+                    updateStats();
+
+                    nextStory();
+
+                };
+
+            choices.appendChild(button);
+
+        }
+    );
+
+
+    updateProgress();
+
+}
+
+
+/* =========================================
+   次のストーリー
+========================================= */
+
+function nextStory() {
+
+    storyIndex++;
+
+    chapter =
+        Math.floor(storyIndex / 1) + 1;
+
+    updateStats();
+
+
+    /*
+     * ストーリーの間に
+     * ミニゲームを大量に挟む
+     */
+
+    if (storyIndex === 1) {
+
+        showMiniGame("souvenir");
+        return;
+
+    }
+
+    if (storyIndex === 2) {
+
+        showMiniGame("food");
+        return;
+
+    }
+
+    if (storyIndex === 3) {
+
+        showMiniGame("gift");
+        return;
+
+    }
+
+    if (storyIndex === 4) {
+
+        showMiniGame("treasure");
+        return;
+
+    }
+
+
+    showStory();
+
+}
+
+
+/* =========================================
+   ミニゲーム表示
+========================================= */
+
+function showMiniGame(type) {
+
+    const game =
+        miniGames[type];
+
+    document
+        .getElementById("sceneScreen")
+        .classList
+        .add("hidden");
+
+    document
+        .getElementById("endingScreen")
+        .classList
+        .add("hidden");
+
+    document
+        .getElementById("miniGameScreen")
+        .classList
+        .remove("hidden");
+
+
+    document
+        .getElementById("miniTitle")
+        .textContent =
+            game.title;
+
+
+    document
+        .getElementById("miniDescription")
+        .textContent =
+            game.description;
+
+
+    const options =
+        document
+        .getElementById("miniOptions");
+
+    options.innerHTML = "";
+
+
+    document
+        .getElementById("gameResult")
+        .classList
+        .add("hidden");
+
+
+    game.options[currentCountry]
+        .forEach((option,index) => {
+
+            const card =
+                document.createElement("button");
+
+            card.className =
+                "mini-option";
+
+            card.innerHTML =
+                `
+                <span class="icon">
+                    ${option.icon}
+                </span>
+
+                <h3>
+                    ${option.title}
+                </h3>
+
+                <p>
+                    ${option.text}
+                </p>
+                `;
+
+            card.onclick =
+                () => {
+
+                    playMiniGame(
+                        option,
+                        type
+                    );
+
+                };
+
+            options.appendChild(card);
+
+        });
+
+
+    miniGameCount++;
+
+}
+
+
+/* =========================================
+   ミニゲーム結果
+========================================= */
+
+function playMiniGame(option,type) {
+
+    affection += option.affection;
+
+    money -= option.money;
+
+    if (money < 0) {
+
+        money = 0;
+
+    }
+
+    inventory.push(option.item);
+
+    updateStats();
+
+    const result =
+        document
+        .getElementById("gameResult");
+
+    result.classList.remove("hidden");
+
+
+    let message = "";
+
+    if (option.affection >= 25) {
+
+        message =
+            `✨ 大成功！<br>
+            ${option.icon} ${option.item} が大好評！<br>
+            好感度が大きく上がりました♡`;
+
+    } else if (option.affection >= 18) {
+
+        message =
+            `💖 とても喜んでもらえました！<br>
+            ${option.icon} ${option.item} を大切そうに受け取ってくれた。`;
+
+    } else {
+
+        message =
+            `♡ ${option.icon} ${option.item} を選びました。<br>
+            「ありがとう」と微笑んでくれました。`;
+
+    }
+
+
+    result.innerHTML =
+        `
+        ${message}
+
+        <br>
+
+        <strong>
+            好感度 +${option.affection}
+        </strong>
+
+        <br>
+
+        <button
+            class="primary"
+            onclick="continueAfterMiniGame()"
+        >
+            次のストーリーへ ♡
+        </button>
+
+        <div class="inventory">
+            ${inventory.map(
+                item =>
+                `<span class="inventory-item">
+                    🎀 ${item}
+                </span>`
+            ).join("")}
+        </div>
+        `;
+
+
+    document
+        .getElementById("miniOptions")
+        .style
+        .pointerEvents = "none";
+
+}
+
+
+/* =========================================
+   ミニゲーム後
+========================================= */
+
+function continueAfterMiniGame() {
+
+    document
+        .getElementById("miniOptions")
+        .style
+        .pointerEvents = "auto";
+
+    showStory();
+
+}
+
+
+/* =========================================
+   ステータス
+========================================= */
+
+function updateStats() {
+
+    document
+        .getElementById("affection")
+        .textContent =
+            affection;
+
+    document
+        .getElementById("money")
+        .textContent =
+            money;
+
+    document
+        .getElementById("chapter")
+        .textContent =
+            chapter;
+
+}
+
+
+/* =========================================
+   進行度
+========================================= */
+
+function updateProgress() {
+
+    const total =
+        stories[currentCountry].length;
+
+    const percent =
+        Math.min(
+            100,
+            ((storyIndex + 1) /
+            (total + 1)) * 100
+        );
+
+    document
+        .getElementById("progressBar")
+        .style
+        .width =
+            percent + "%";
+
+}
+
+
+/* =========================================
+   エンディング
+========================================= */
+
+function showEnding() {
+
+    document
+        .getElementById("sceneScreen")
+        .classList
+        .add("hidden");
+
+    document
+        .getElementById("miniGameScreen")
+        .classList
+        .add("hidden");
+
+    document
+        .getElementById("endingScreen")
+        .classList
+        .remove("hidden");
+
+
+    let title = "";
+    let text = "";
+
+
+    if (affection >= 110) {
+
+        title = "💖 True Love Ending 💖";
+
+        text =
+            `${playerName}と彼の間には、もう国境なんて関係なかった。\n\n` +
+
+            `出会ったばかりだったはずなのに、\n` +
+
+            `一緒に食事をし、贈り物を選び、\n` +
+
+            `たくさんの時間を重ねるうちに、\n` +
+
+            `二人の距離は誰にも止められないほど近くなっていた。\n\n` +
+
+            `「これからも、私の隣にいてくれますか？」`;
+
+    }
+    else if (affection >= 80) {
+
+        title = "💕 Sweet Love Ending 💕";
+
+        text =
+            `二人は特別な関係になった。\n\n` +
+
+            `まだ始まったばかりの恋。\n` +
+
+            `けれど、次に会う約束だけはもう決まっている。\n\n` +
+
+            `――この恋の続きは、まだ終わらない。`;
+
+    }
+    else {
+
+        title = "🌸 Friendship Ending 🌸";
+
+        text =
+            `二人は素敵な友人になった。\n\n` +
+
+            `恋には届かなかったけれど、\n` +
+
+            `この旅で過ごした時間は忘れられない思い出になった。`;
+
+    }
+
+
+    document
+        .getElementById("endingTitle")
+        .textContent =
+            title;
+
+
+    document
+        .getElementById("endingText")
+        .textContent =
+            text;
+
+
+    updateProgress();
+
+}
+
+
+/* =========================================
+   トースト
+========================================= */
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent =
+        message;
+
+    toast.classList.add("show");
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    },2200);
+
+}
+
+</script>
+
+</body>
+</html>
